@@ -9,6 +9,7 @@ class Cv extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'member_id',
         'firstName',
         'lastName',
         'email',

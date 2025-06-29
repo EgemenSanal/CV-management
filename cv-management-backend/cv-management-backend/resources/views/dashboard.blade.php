@@ -25,13 +25,17 @@
             <!-- Existing CVs -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse ($cvs as $cv)
-                    <div class="bg-gray-800 p-5 rounded-xl shadow-md text-white">
-                        <h4 class="text-lg font-bold mb-1">{{ $cv->firstName }} {{ $cv->lastName }}</h4>
-                        <p class="text-sm text-gray-300 mb-2">{{ $cv->email }}</p>
-                        <p class="text-sm">{{ Str::limit($cv->summary, 100) }}</p>
-                        <div class="mt-3">
+                    <div class="bg-gray-800 p-5 rounded-xl shadow-md text-white flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-lg font-bold mb-1">{{ $cv->firstName }} {{ $cv->lastName }}</h4>
+                            <p class="text-sm text-gray-300 mb-2">{{ $cv->email }}</p>
+                            <p class="text-sm">{{ Str::limit($cv->summary, 100) }}</p>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
                             <a href="{{ route('cv.show', $cv->id) }}"
                                class="text-indigo-400 hover:underline text-sm">Detayları Gör</a>
+                            <a href="{{ route('cv.download', $cv->id) }}"
+                               class="text-green-400 hover:underline text-sm">PDF olarak indir</a>
                         </div>
                     </div>
                 @empty

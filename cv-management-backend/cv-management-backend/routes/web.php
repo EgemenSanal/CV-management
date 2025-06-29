@@ -37,6 +37,11 @@ Route::resource('cv', App\Http\Controllers\CvController::class);
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])
     ->name('dashboard');
+Route::get('/cv/create', [CvController::class, 'create'])->name('cv.create');
+Route::post('/cv', [CvController::class, 'store'])->name('cv.store');
+Route::get('/cv/{id}/download', [CvController::class, 'downloadPdf'])->name('cv.download');
+
+
 
 
 require __DIR__.'/auth.php';

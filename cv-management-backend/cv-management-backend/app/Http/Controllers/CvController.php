@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCvRequest;
 use App\Http\Requests\UpdateCvRequest;
 use App\Models\Cv;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CvController extends Controller
 {
@@ -22,7 +23,7 @@ class CvController extends Controller
      */
     public function create()
     {
-        //
+        return view('cv.create');
     }
 
     /**
@@ -41,7 +42,7 @@ class CvController extends Controller
         ]);
     
         $cv = Cv::create([
-            'user_id' => auth()->id(),
+            'member_id' => auth()->id(),
             'firstName' => $request->firstName,
             'lastName' => $request->lastName,
             'email' => $request->email,
@@ -51,12 +52,16 @@ class CvController extends Controller
             'skills' => $request->skills,
         ]);
     
-        return response()->json([
-            'message' => 'CV başarıyla oluşturuldu.',
-            'data' => $cv
-        ], 201);
+        return redirect()->route('dashboard')->with('success', 'CV başarıyla oluşturuldu.');
     }
+    public function downloadPdf($id)
+{
+    $cv = Cv::findOrFail($id);
 
+    $pdf = Pdf::loadView('cv.pdf', ['cv' => $cv]);
+
+    return $pdf->download("cv_{$cv->firstName}_{$cv->lastName}.pdf");
+}
     /**
      * Display the specified resource.
      */

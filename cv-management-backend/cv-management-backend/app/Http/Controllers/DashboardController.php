@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $cvs = Cv::where('user_id', Auth::id())->get();
+        $cvs = Cv::where('member_id', Auth::id())->get();
 
         return view('dashboard', compact('cvs'));
     }
