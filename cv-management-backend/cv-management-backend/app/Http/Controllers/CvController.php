@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCvRequest;
 use App\Http\Requests\UpdateCvRequest;
 use App\Models\Cv;
+use Illuminate\Http\Request;
 
 class CvController extends Controller
 {
@@ -27,9 +28,33 @@ class CvController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCvRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'firstName' => 'required|string|max:100',
+            'lastName' => 'required|string|max:100',
+            'email' => 'nullable|email',
+            'summary' => 'nullable|string',
+            'experiences' => 'nullable|array',
+            'educations' => 'nullable|array',
+            'skills' => 'nullable|array',
+        ]);
+    
+        $cv = Cv::create([
+            'user_id' => auth()->id(),
+            'firstName' => $request->firstName,
+            'lastName' => $request->lastName,
+            'email' => $request->email,
+            'summary' => $request->summary,
+            'experiences' => $request->experiences,
+            'educations' => $request->educations,
+            'skills' => $request->skills,
+        ]);
+    
+        return response()->json([
+            'message' => 'CV başarıyla oluşturuldu.',
+            'data' => $cv
+        ], 201);
     }
 
     /**

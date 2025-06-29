@@ -8,4 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Cv extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'firstName',
+        'lastName',
+        'email',
+        'summary',
+        'experiences',
+        'educations',
+        'skills',
+    ];
+    protected $casts = [
+        'experiences' => 'array',
+        'educations' => 'array',
+        'skills' => 'array',
+    ];
+    public function user()
+{
+    return $this->belongsTo(Member::class);
+}
 }
