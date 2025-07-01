@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-2xl text-white leading-tight">
-            {{ __('CV Yönetim Paneli') }}
+            {{ __('CV Management Dashboard') }}
         </h2>
     </x-slot>
 
@@ -10,15 +10,15 @@
 
             <!-- Welcome Message -->
             <div class="bg-gray-800 p-6 rounded-xl shadow-lg text-white">
-                <h3 class="text-xl font-bold mb-2">Hoş geldin, {{ Auth::user()->name }}!</h3>
-                <p>CV’lerini yönetebilir veya yeni bir tane oluşturabilirsin.</p>
+                <h3 class="text-xl font-bold mb-2">Welcome, {{ Auth::user()->name }}!</h3>
+                <p>You can create your cv here!</p>
             </div>
 
             <!-- Create New CV Button -->
             <div>
                 <a href="{{ route('cv.create') }}"
                    class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition">
-                    + Yeni CV Oluştur
+                    + Create New CV
                 </a>
             </div>
 
@@ -33,9 +33,9 @@
                         </div>
                         <div class="mt-4 flex justify-between items-center">
                             <a href="{{ route('cv.show', $cv->id) }}"
-                               class="text-indigo-400 hover:underline text-sm">Detayları Gör</a>
+                               class="text-indigo-400 hover:underline text-sm">Show More</a>
                             <a href="{{ route('cv.download', $cv->id) }}"
-                               class="text-green-400 hover:underline text-sm">PDF olarak indir</a>
+                               class="text-green-400 hover:underline text-sm">Download PDF</a>
                         </div>
                     </div>
                 @empty

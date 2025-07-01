@@ -10,13 +10,19 @@ return new class extends Migration {
         Schema::create('cvs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
+
             $table->string('firstName');
             $table->string('lastName');
             $table->string('email')->nullable();
+            $table->string('phoneNumber');
+            $table->string('cityLiving');
+            $table->string('countryLiving');
             $table->text('summary')->nullable();
-            $table->json('experiences')->nullable();
+
             $table->json('educations')->nullable();
+            $table->json('experiences')->nullable();
             $table->json('skills')->nullable();
+
             $table->timestamps();
         });
     }

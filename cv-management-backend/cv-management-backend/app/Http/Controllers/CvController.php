@@ -30,30 +30,36 @@ class CvController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'firstName' => 'required|string|max:100',
-            'lastName' => 'required|string|max:100',
-            'email' => 'nullable|email',
-            'summary' => 'nullable|string',
-            'experiences' => 'nullable|array',
-            'educations' => 'nullable|array',
-            'skills' => 'nullable|array',
-        ]);
-    
-        $cv = Cv::create([
-            'member_id' => auth()->id(),
-            'firstName' => $request->firstName,
-            'lastName' => $request->lastName,
-            'email' => $request->email,
-            'summary' => $request->summary,
-            'experiences' => $request->experiences,
-            'educations' => $request->educations,
-            'skills' => $request->skills,
-        ]);
-    
-        return redirect()->route('dashboard')->with('success', 'CV başarıyla oluşturuldu.');
-    }
+{
+    $request->validate([
+        'firstName' => 'required|string|max:100',
+        'lastName' => 'required|string|max:100',
+        'email' => 'nullable|email',
+        'summary' => 'nullable|string',
+        'phoneNumber' => 'required|string',
+        'cityLiving' => 'required|string',
+        'countryLiving' => 'required|string',
+        'experiences' => 'nullable|string',
+        'educations' => 'nullable|string',
+        'skills' => 'nullable|string',
+    ]);
+
+    $cv = Cv::create([
+        'member_id' => auth()->id(),
+        'firstName' => $request->firstName,
+        'lastName' => $request->lastName,
+        'email' => $request->email,
+        'phoneNumber' => $request->phoneNumber,
+        'cityLiving' => $request->cityLiving,
+        'countryLiving' => $request->countryLiving,
+        'summary' => $request->summary,
+        'experiences' => json_decode($request->experiences, true),
+        'educations' => json_decode($request->educations, true),
+        'skills' => json_decode($request->skills, true),
+    ]);
+
+    return redirect()->route('dashboard')->with('success', 'CV başarıyla oluşturuldu.');
+}
     public function downloadPdf($id)
 {
     $cv = Cv::findOrFail($id);

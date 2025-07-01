@@ -34,7 +34,7 @@
         }
 
         .item {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .item-title {
@@ -58,9 +58,7 @@
     <!-- Header -->
     <h1>{{ strtoupper($cv->firstName . ' ' . $cv->lastName) }}</h1>
     <div class="contact">
-        {{ $cv->email ?? 'E-mail belirtilmemiş' }} |
-        City, Country |
-        LinkedIn | Phone
+        {{ $cv->email ?? '-' }} | {{ $cv->phoneNumber ?? '-' }} | {{ $cv->cityLiving ?? '-' }}, {{ $cv->countryLiving ?? '-' }}
     </div>
 
     <!-- Career Summary -->
@@ -72,12 +70,41 @@
     <!-- Education -->
     @if (!empty($cv->educations))
         <div class="section">
-            <h2>EDUCATION AND CERTIFICATION</h2>
+            <h2>EDUCATION</h2>
             @foreach ($cv->educations as $edu)
-                <div class="item">
-                    <div class="item-title">{{ $edu }}</div>
-                    <div class="item-detail">College, University, Location – Date</div>
-                </div>
+                @php
+                    $isEmpty = collect($edu)->filter(function ($val) {
+                        return trim($val) !== '';
+                    })->isEmpty();
+                @endphp
+
+                @if (!$isEmpty)
+                    <div class="item">
+                        <div class="item-title">{{ $edu['degree'] ?? '-' }} - {{ $edu['institution'] ?? '-' }}</div>
+                        <div>{{ $edu['city'] ?? '-' }}, {{ $edu['country'] ?? '-' }} | {{ $edu['start'] ?? '-' }} - {{ $edu['end'] ?? '-' }}</div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+    @endif
+
+    <!-- Experience -->
+    @if (!empty($cv->experiences))
+        <div class="section">
+            <h2>EXPERIENCE</h2>
+            @foreach ($cv->experiences as $exp)
+                @php
+                    $isEmpty = collect($exp)->filter(function ($val) {
+                        return trim($val) !== '';
+                    })->isEmpty();
+                @endphp
+
+                @if (!$isEmpty)
+                    <div class="item">
+                        <div class="item-title">{{ $exp['title'] ?? '-' }} - {{ $exp['company'] ?? '-' }}</div>
+                        <div>{{ $exp['city'] ?? '-' }}, {{ $exp['country'] ?? '-' }} | {{ $exp['start'] ?? '-' }} - {{ $exp['end'] ?? '-' }}</div>
+                    </div>
+                @endif
             @endforeach
         </div>
     @endif
@@ -88,25 +115,11 @@
             <h2>TECHNICAL SKILLS</h2>
             <ul class="skills">
                 @foreach ($cv->skills as $skill)
-                    <li>{{ $skill }}</li>
+                    @if (trim($skill) !== '')
+                        <li>{{ $skill }}</li>
+                    @endif
                 @endforeach
             </ul>
-        </div>
-    @endif
-
-    <!-- Work Experience -->
-    @if (!empty($cv->experiences))
-        <div class="section">
-            <h2>WORK EXPERIENCE</h2>
-            @foreach ($cv->experiences as $exp)
-                <div class="item">
-                    <div class="item-title">Your Job Position | Company, Location</div>
-                    <div class="item-detail">Date – Present</div>
-                    <ul>
-                        <li>{{ $exp }}</li>
-                    </ul>
-                </div>
-            @endforeach
         </div>
     @endif
 

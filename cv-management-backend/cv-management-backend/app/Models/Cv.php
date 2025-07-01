@@ -13,9 +13,12 @@ class Cv extends Model
         'firstName',
         'lastName',
         'email',
+        'phoneNumber',
+        'cityLiving',
+        'countryLiving',
         'summary',
-        'experiences',
         'educations',
+        'experiences',
         'skills',
     ];
     protected $casts = [
