@@ -11,8 +11,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Vite Build CSS/JS -->
+    <link rel="stylesheet" href="{{ asset('build/assets/app-37963842.css') }}">
+    <script type="module" src="{{ asset('build/assets/app-6d651f5d.js') }}"></script>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans antialiased min-h-screen flex flex-col">
     
@@ -37,7 +38,7 @@
         </div>
     </main>
 
-    <!-- Footer (optional) -->
+    <!-- Footer -->
     <footer class="bg-gray-800 py-4 text-center text-sm text-gray-400">
         © {{ date('Y') }} CV Management Platform - Designed by Egemen
     </footer>

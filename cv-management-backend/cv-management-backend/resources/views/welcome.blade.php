@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV Management | Welcome</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Vite Build CSS/JS -->
+    <link rel="stylesheet" href="{{ asset('build/assets/app-37963842.css') }}">
+    <script type="module" src="{{ asset('build/assets/app-6d651f5d.js') }}"></script>
 </head>
 <body class="bg-gray-900 text-white font-sans antialiased min-h-screen flex items-center justify-center px-4">
 
